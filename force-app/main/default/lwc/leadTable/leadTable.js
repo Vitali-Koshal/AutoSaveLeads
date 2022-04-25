@@ -18,6 +18,7 @@ export default class LeadTable extends LightningElement {
     id = '';
     title = '';
     phone = '';
+    
     @wire (getLeads)
     wiredLeads (response) {
         const {data, error} = response;
@@ -25,7 +26,7 @@ export default class LeadTable extends LightningElement {
         if (data) {
             this.records = data;
             this.records = this.records.map( row => {
-                return { LeadURL: '/lightning/r/Contact/' + row.Id + '/view',
+                return { LeadURL: '/lightning/r/Lead/' + row.Id + '/view',
                         Name: row.Name,
                         Title: row.Title, 
                         Phone: row.Phone, 
@@ -38,24 +39,13 @@ export default class LeadTable extends LightningElement {
         }
     }
 
-    handleSaveAction1(event) {
+    handleCellChangeAction(event) {
         this.saveDraftValues = event.detail.draftValues;
         this.id = this.saveDraftValues[0].Id;
         this.title = this.saveDraftValues[0].Title;
         this.phone = this.saveDraftValues[0].Phone;
         updateLead({id: this.id, title: this.title, phone: this.phone});
         //updateRecord(event.detail.draftValues);
-        this.template.querySelector("lightning-datatable").draftValues = [];
-        clearTimeout(this.timeoutId);
-        this.timeoutId = setTimeout(this.refreshData.bind(this),1000);
-    }
-
-    handleCellChangeAction(event){
-        this.saveDraftValues = event.detail.draftValues;
-        this.id = this.saveDraftValues[0].Id;
-        this.title = this.saveDraftValues[0].Title;
-        this.phone = this.saveDraftValues[0].Phone;
-        updateLead({id: this.id, title: this.title, phone: this.phone});
         this.template.querySelector("lightning-datatable").draftValues = [];
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(this.refreshData.bind(this),1000);

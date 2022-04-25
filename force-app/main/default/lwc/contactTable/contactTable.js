@@ -8,6 +8,7 @@ export default class ContactTable extends LightningElement {
     columns = COLUMNS;
     records;
     error;
+    
     @wire (getContacts)
     wiredContacts (response) {
         const {data, error} = response;

@@ -11,13 +11,14 @@ public with sharing class LeadContactController {
     }
 
     @AuraEnabled
-    public static void updateLead(String id, String title, String phone){
+    public static void updateLead(String id, String title, String phone) {
         Lead lead = [SELECT Id, Title, Phone FROM Lead WHERE Id = :id];
-        if (String.isNotEmpty(title)){
+        if (String.isNotEmpty(title)) {
             lead.Title = title;
         }
-        if (String.isNotEmpty(phone))
-        lead.Phone = phone;
+        if (String.isNotEmpty(phone)) {
+            lead.Phone = phone;
+        }
         try {
             update lead;
         } catch (DmlException e) {}
