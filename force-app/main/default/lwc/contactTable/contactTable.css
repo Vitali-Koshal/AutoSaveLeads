@@ -1,0 +1,16 @@
+h1 {
+    font-weight: bold;
+    font-size: medium;
+}
+.header_container {
+    background-color: rgb(242, 242, 242);
+}
+.without_spacing-card {
+    --sds-c-card-header-spacing-block-end: 0;
+    --sds-c-card-header-spacing-block-start: 0;
+    --sds-c-card-body-spacing-block-start: 0; 
+}
+.div_datatable {
+    overflow-y: scroll; 
+    height: 100vh;
+}

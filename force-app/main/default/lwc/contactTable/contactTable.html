@@ -1,0 +1,20 @@
+<template>
+    <div class='slds-p-around_medium header_container'>
+        <lightning-tile label='Contacts' title='Contacts' type='media'>
+            <h1>All contacts</h1>
+            <lightning-icon slot='media' icon-name="standard:contact" size='large'>
+            </lightning-icon>
+            {error}
+        </lightning-tile>
+    </div>
+    <lightning-card class='without_spacing-card'>
+        <div class='div_datatable'>
+            <lightning-datatable key-field='Id' 
+                                data={records} 
+                                columns={columns} 
+                                show-row-number-column='true' 
+                                onrowaction={handleRowAction}>
+            </lightning-datatable>
+        </div> 
+    </lightning-card>
+</template>
