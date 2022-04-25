@@ -3,6 +3,7 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
 import getLeads from '@salesforce/apex/LeadContactController.getLeads';
 import updateLead from '@salesforce/apex/LeadContactController.updateLead';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 const COLUMNS = [
     { label: 'Name', fieldName: 'LeadURL', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}, displayReadOnlyIcon: true},
     { label: 'Title', fieldName: 'Title', type: 'text', editable: true},
@@ -48,7 +49,7 @@ export default class LeadTable extends LightningElement {
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(this.refreshData.bind(this),1000);
     }
-    
+
     handleCellChangeAction(event){
         this.saveDraftValues = event.detail.draftValues;
         this.id = this.saveDraftValues[0].Id;
@@ -58,6 +59,11 @@ export default class LeadTable extends LightningElement {
         this.template.querySelector("lightning-datatable").draftValues = [];
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(this.refreshData.bind(this),1000);
+        const toastEvent = new ShowToastEvent({
+            message: ' Your changes are saved',
+            variant: 'success'
+            });
+        this.dispatchEvent(toastEvent);
     }
 
     refreshData() {
